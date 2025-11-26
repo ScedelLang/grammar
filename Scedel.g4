@@ -1,16 +1,12 @@
 grammar Scedel;
 
-@header {
-package org.pilov.scedel.antlr;
-}
-
-file : (importStatement | annotatedDecl)* EOF;
+file :includeStatement* annotatedDecl* EOF;
 
 annotatedDecl : annotationLine* decl;
 
 decl : typeDeclaration | validatorDeclaration;
 
-importStatement : IMPORT StringLiteral;
+includeStatement : INCLUDE StringLiteral;
 
 annotationLine : AT annotationKey EQUAL StringLiteral;
 
@@ -110,7 +106,7 @@ BlockComment    : '/*' .*? '*/' -> channel(HIDDEN) ;
 WS              : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 // === KEYWORDS ===
-IMPORT    : 'import';
+INCLUDE   : 'include';
 TYPE      : 'type';
 RULE      : 'rule';
 VALIDATOR : 'validator';
